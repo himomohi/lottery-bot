@@ -1,24 +1,24 @@
-name: Buy lotto
+name: Buy win720
 on:
   schedule:
-    - cron: 0 10 * * 1 # every Monday on 07:00 PM (KST)
+    - cron: 0 10 * * 2 # every Tuesday on 07:00 PM (KST)
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: [ubuntu-latest]
-    name: Buy lotto
-    steps:  
+    name: Buy win720
+    steps:
 
-      - uses: actions/checkout@v3    
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
           cache: 'pip' # caching pip dependencies
       - run: pip install -r requirements.txt
-      
+
       - name: Run Scripts
-        run: make buy
+        run: make buy_win720
         env:
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}

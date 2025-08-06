@@ -65,6 +65,36 @@ def check():
     response = check_winning_win720(globalAuthCtrl)
     send_message(0, 1, response=response, webhook_url=discord_webhook_url)
 
+def buy_lotto645_only():
+    load_dotenv()
+
+    username = os.environ.get('USERNAME')
+    password = os.environ.get('PASSWORD')
+    count = int(os.environ.get('COUNT'))
+    discord_webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
+    mode = "AUTO"
+
+    globalAuthCtrl = auth.AuthController()
+    globalAuthCtrl.login(username, password)
+
+    response = buy_lotto645(globalAuthCtrl, count, mode)
+    send_message(1, 0, response=response, webhook_url=discord_webhook_url)
+
+
+def buy_win720_only():
+    load_dotenv()
+
+    username = os.environ.get('USERNAME')
+    password = os.environ.get('PASSWORD')
+    discord_webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
+
+    globalAuthCtrl = auth.AuthController()
+    globalAuthCtrl.login(username, password)
+
+    response = buy_win720(globalAuthCtrl, username)
+    send_message(1, 1, response=response, webhook_url=discord_webhook_url)
+
+
 def buy(): 
     
     load_dotenv() 
@@ -89,13 +119,18 @@ def buy():
 
 def run():
     if len(sys.argv) < 2:
-        print("Usage: python controller.py [buy|check]")
+        print("Usage: python controller.py [buy|check|buy_lotto645|buy_win720]")
         return
 
-    if sys.argv[1] == "buy":
+    command = sys.argv[1]
+    if command == "buy":
         buy()
-    elif sys.argv[1] == "check":
+    elif command == "check":
         check()
+    elif command == "buy_lotto645":
+        buy_lotto645_only()
+    elif command == "buy_win720":
+        buy_win720_only()
   
 
 if __name__ == "__main__":
